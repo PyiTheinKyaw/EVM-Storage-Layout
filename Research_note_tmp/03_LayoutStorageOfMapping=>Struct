@@ -1,0 +1,32 @@
+p = Slot position of variable
+i = index of p's
+n = index of Struct's
+keccak256(uint256(i).uint256(p)) + n
+
+############################################
+### Test for mapping uint256 <=> Struct ###
+############################################
+s_num2Struct_map[0].c
+p = 7
+i = 0
+n = 1
+
+key = keccak256(uint256(i).uint256(p)) + n
+key = web3.utils.soliditySha3(web3.utils.padLeft('0x0', 64), web3.utils.padLeft('0x7', 64)) + 1
+    = 0x6d5257204ebe7d88fd91ae87941cb2dd9d8062b64ae5a2bd2d28ec40b9fbf6e0
+contract = 0x5fbdb2315678afecb367f032d93f642f64180aa3
+
+>> 0x00000000000000000000000000000000000000000000000000000000000007cb <<
+-------------------------------------------------------
+s_num2Struct_map[0].a
+p = 7
+i = 0
+n = 0
+
+key = keccak256(uint256(i).uint256(p)) + n
+key = web3.utils.soliditySha3(web3.utils.padLeft('0x0', 64), web3.utils.padLeft('0x7', 64)) + 0
+    = 0x6d5257204ebe7d88fd91ae87941cb2dd9d8062b64ae5a2bd2d28ec40b9fbf6df
+contract = 0x5fbdb2315678afecb367f032d93f642f64180aa3
+
+>> 0x000000000000000000000000000000000000000000000000000000000008000d <<
+-------------------------------------------------------

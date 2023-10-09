@@ -1,0 +1,59 @@
+############################################
+### Test for mapping uint256 <=> uint256 ###
+############################################
+p = 4
+i = 0
+
+key = keccak256(uint256(i).uint256(p))
+key = web3.utils.soliditySha3(web3.utils.padLeft('0x0', 64), web3.utils.padLeft('0x4', 64))
+    = 0x17ef568e3e12ab5b9c7254a8d58478811de00f9e6eb34345acd53bf8fd09d3ec
+contract = 0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9
+
+>> 0x0000000000000000000000000000000000000000000000000000000000000001 <<
+-------------------------------------------------------
+p = 4
+i = 3
+
+key = keccak256(uint256(i).uint256(p))
+key = web3.utils.soliditySha3(web3.utils.padLeft('0x3', 64), web3.utils.padLeft('0x4', 64))
+    = 0x2e174c10e159ea99b867ce3205125c24a42d128804e4070ed6fcc8cc98166aa0
+contract = 0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9
+
+>> 0x0000000000000000000000000000000000000000000000000000000000000003 <<
+-------------------------------------------------------
+############################################
+### Test for mapping uint32 <=> uint256 ###
+############################################
+p = 5
+i = 2
+
+key = keccak256(uint256(i).uint256(p))
+key = web3.utils.soliditySha3(web3.utils.padLeft('0x2', 64), web3.utils.padLeft('0x5', 64))
+    = 0x89832631fb3c3307a103ba2c84ab569c64d6182a18893dcd163f0f1c2090733a
+contract = 0x5FC8d32690cc91D4c39d9d3abcBD16989F875707
+
+>> 0x00000000000000000000000000000000000000000000000000000000000000e6 <<
+-------------------------------------------------------
+
+############################################
+### Test for mapping uint256 <=> uint32  ###
+############################################
+p = 6
+i = 0
+
+key = keccak256(uint256(i).uint256(p))
+key = web3.utils.soliditySha3(web3.utils.padLeft('0x0', 64), web3.utils.padLeft('0x6', 64))
+    = 0x54cdd369e4e8a8515e52ca72ec816c2101831ad1f18bf44102ed171459c9b4f8
+contract = 0x0165878A594ca255338adfa4d48449f69242Eb8F
+
+>> 0x0000000000000000000000000000000000000000000000000000000000000022 <<
+-------------------------------------------------------
+p = 6
+i = 1
+
+key = keccak256(uint256(i).uint256(p))
+key = web3.utils.soliditySha3(web3.utils.padLeft('0x1', 64), web3.utils.padLeft('0x6', 64))
+    = 0x3e5fec24aa4dc4e5aee2e025e51e1392c72a2500577559fae9665c6d52bd6a31
+contract = 0xa513E6E4b8f2a923D98304ec87F64353C4D5C853
+
+>> 0x0000000000000000000000000000000000000000000000000000000000000001 <<
