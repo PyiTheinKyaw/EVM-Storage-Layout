@@ -3,6 +3,9 @@ pragma solidity >=0.4.0 <0.9.0;
 
 contract StringLayoutInStorage
 {
+    // REF: https://docs.soliditylang.org/en/latest/internals/layout_in_storage.htm
+    // Let assume Slot position as `p`
+    // Bytes and Strings does the same ways.`
     string private s_short_str1;    // Slot 0
     string private s_short_str2;    // Slot 1
     string private s_long_str1;     // Slot 2

@@ -2,7 +2,7 @@
 pragma solidity >=0.4.0 <0.9.0;
 
 contract C {
-
+    // REF: https://docs.soliditylang.org/en/latest/internals/layout_in_storage.htm
     // Let assume Slot position as `p`
     struct S { 
         uint16 a;    // Position of Struct S: Slot 0
@@ -10,7 +10,7 @@ contract C {
         uint256 c;   // Position of Struct S: Slot 1
     }
 
-    uint x;                                               // Position of Contract C: Slot 0
+    uint private x;                                       // Position of Contract C: Slot 0
     mapping(uint => mapping(uint => S)) s_data;           // Position of Contract C: Slot 1
     uint256[] private s_array;                            // Position of Contract C: Slot 2
     uint24[] private s_24array;                           // Position of Contract C: Slot 3
@@ -21,8 +21,9 @@ contract C {
     S[] private s_struct_array;                           // Position of Contract C: Slot 8
 
     constructor() {
+        x = 999;
         /* 
-        ####################################### Array #####################################################
+        ####################################### 1. Array ###################################################
             p = variable slot location
             i = index of p's 
             keccak256(uint256(p)) + i
@@ -64,7 +65,7 @@ contract C {
         /* ################################################################################################# */
 
         /* 
-        ####################################### Map #####################################################
+        ####################################### 2. Map $####################################################
             p = variable slot location
             i = index of p's 
             keccak256(uint256(i).uint256(p))
@@ -101,7 +102,7 @@ contract C {
         /* ################################################################################################# */
 
         /* 
-        ####################################### Struct's Arrray & Map ######################################
+        ####################################### 3. Struct's Mapping ########################################
             p = Slot position of variable
             i = index of p's
             n = index of Struct's
@@ -124,10 +125,34 @@ contract C {
         /* ################################################################################################# */
 
         /* 
-            s_struct_array is Array of Struct.
+            ####################################### 4. Struct's Arrray & Map ####################################
+                p = Slot position of variable
+                i = index of p's
+                n = index of Struct's
+
+                (keccak256(uint256(p)) + i) + n
+            ###################################################################################################
+        */
+        /*
+            s_struct_array is Struct[] array contain Struct object.
+            Struct have it's own rule as normal data type but they are in spearated location.
         */
         s_struct_array.push(s1);
         s_struct_array.push(s2);
 
+        /* ################################################################################################# */
+
+        /* 
+        ####################################### 5. Nested Map and Struct ######################################
+            p = Slot position of variable
+            i = index of p's which we would like to access
+            j = index of i'swhich we would like to access
+            n = slot position of Struct's which we would like to access
+
+            keccak256(uint256(j) . keccak256(uint256(p) . uint256(i))) + n;
+        ####################################################################################################
+        */
+       s_data[1][1] = s1;
+       s_data[1][4] = s2;
     }
 }

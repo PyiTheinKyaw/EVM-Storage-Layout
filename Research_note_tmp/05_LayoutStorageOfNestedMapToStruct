@@ -1,0 +1,38 @@
+p = Slot position of variable
+i = index of p's which we would like to access
+j = index of i'swhich we would like to access
+n = slot position of Struct's which we would like to access
+
+keccak256(uint256(j) . keccak256(uint256(p) . uint256(i))) + n;
+#####################################################
+### Test for mapping uint256 => uint256 => Struct ###
+#####################################################
+s_data[1][4].c
+s_data[i][j].c
+
+p = 1;
+i = 1;
+j = 4;
+n = 1;
+contract = 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512
+
+# Calculate Key.
+key = keccak256(uint256(j) . keccak256(uint256(p) .  uint256(i))) + n;
+    = (web3.utils.soliditySha3(j, web3.utils.soliditySha3(p, i)))+ n;
+    = (web3.utils.soliditySha3(j, 0xcc69885fda6bcc1a4ace058b4a62bf5e179ea78fd58a1ccd71c22cc9b688792f))+ n;
+    = (0x5d6cd7de0286a98dfeda5747bd584a64ab88877681c0079306854ffd7e7c1a03) + 1
+    = 0x5d6cd7de0286a98dfeda5747bd584a64ab88877681c0079306854ffd7e7c1a04
+
+# Step1: Solve web3.utils.soliditySha3(p, i)
+web3.utils.soliditySha3(p, i) = web3.utils.soliditySha3(web3.utils.padLeft('0x1', 64), web3.utils.padLeft('0x1', 64));
+                              = 0xcc69885fda6bcc1a4ace058b4a62bf5e179ea78fd58a1ccd71c22cc9b688792f
+
+# Step2: Solve web3.utils.soliditySha3(j, 0xcc69885fda6bcc1a4ace058b4a62bf5e179ea78fd58a1ccd71c22cc9b688792f))
+web3.utils.soliditySha3(web3.utils.padLeft('0x4', 64), '0xcc69885fda6bcc1a4ace058b4a62bf5e179ea78fd58a1ccd71c22cc9b688792f')
+= 0x5d6cd7de0286a98dfeda5747bd584a64ab88877681c0079306854ffd7e7c1a03
+
+# Output
+>> 0x0000000000000000000000000000000000000000000000000000000000004dd5 <<
+
+#########################################################
+
