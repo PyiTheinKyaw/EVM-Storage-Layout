@@ -5,10 +5,19 @@ contract StringLayoutInStorage
 {
     string private s_short_str1;    // Slot 0
     string private s_short_str2;    // Slot 1
-    string private s_long_str;      // Slot 2
+    string private s_long_str1;     // Slot 2
+    string private s_long_str2;     // Slot 3
+
+    bytes private s_short_byte;     // Slot 4
+    bytes private s_long_byte1;     // Slot 5
+    bytes private s_long_byte2;     // Slot 6
 
     constructor ()
     {
+        /* 
+            ####################################### String #####################################################
+        */
+
         /*
             if the data is at most 31 bytes long, 
             the elements are stored in the higher-order bytes (left aligned) 
@@ -27,8 +36,8 @@ contract StringLayoutInStorage
             For byte arrays that store data which is 32 or more bytes long, 
             the main slot p stores length * 2 + 1 and the data is stored as usual in keccak256(p). 
 
-            s_short_str = 0x0000000000000000000000000000000000000000000000000000000000000041
-            Value of s_long_str is 32 bytes long. LSB is 0x41 which is 65 in hex.
+            s_short_str1 = 0x0000000000000000000000000000000000000000000000000000000000000041
+            Value of s_long_str1 is 32 bytes long. LSB is 0x41 which is 65 in hex.
 
             Summary: if value is 32 or more than, the lowest-order byte store (length_in_bytes * 2) + 1
                      The location of data is store in keccak256(p), 'p' is slot position.
@@ -38,6 +47,17 @@ contract StringLayoutInStorage
                                           which is 'AAAxdKy1Bs3FhBP0ZEk9LIYUqRj9yAAA'.
 
         */
-        s_long_str = "AAAxdKy1Bs3FhBP0ZEk9LIYUqRj9yAAA"; // 32 bytes long
+        s_long_str1 = "AAAxdKy1Bs3FhBP0ZEk9LIYUqRj9yAAA";      // 32 bytes long
+        s_long_str2 = "AAAxdKy1Bs3FhBP0ZEk9LIYUqRj9yAAABBBBBB"; // 38 bytes long
+
+        /* ################################################################################################# */
+
+        /* 
+            ####################################### Bytes #####################################################
+        */
+        s_short_byte = bytes("ILOVEOUOU");                                     // Under 32 bytes
+        s_long_byte1 = bytes("AAAxdKy1Bs3FhBP0ZEk9LIYUqRj9yAAA");              // 32 byts  
+        s_long_byte2 = bytes("AAAxdKy1Bs3FhBP0ZEk9LIYUqRj9yAAAOUOUKOCHITDL");  // Over 32 bytes
+        /* ################################################################################################# */
     }
 }
