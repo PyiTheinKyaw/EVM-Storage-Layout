@@ -3,6 +3,7 @@ pragma solidity >=0.4.0 <0.9.0;
 
 contract C {
     // REF: https://docs.soliditylang.org/en/latest/internals/layout_in_storage.htm
+    // @Author: Justin Thein Kyaw
     // Let assume Slot position as `p`
     struct S { 
         uint16 a;    // Position of Struct S: Slot 0
